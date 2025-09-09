@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | ScholarshipPortal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background-color: #f9fafb;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: var(--accent) !important;
+    }
+    
+    .breadcrumb {
+      background-color: transparent;
+      padding: 15px 0;
+      margin-bottom: 0;
+    }
+    
+    .page-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .page-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+    
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 15px;
+    }
+    
+    .contact-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: center;
+      height: 100%;
+      transition: transform 0.3s ease;
+      margin-bottom: 30px;
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .contact-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(67, 97, 238, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+    
+    .contact-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+    
+    .contact-info {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .contact-link {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .contact-link:hover {
+      color: var(--secondary);
+    }
+    
+    .form-section {
+      background: white;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 60px;
+    }
+    
+    .form-label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: #555;
+    }
+    
+    .form-control {
+      border-radius: 10px;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
+    }
+    
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-submit:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .faq-section {
+      background: var(--light);
+      padding: 80px 0;
+    }
+    
+    .accordion-item {
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .accordion-button {
+      background: white;
+      border: none;
+      border-radius: 10px;
+      padding: 20px;
+      font-weight: 600;
+      color: var(--secondary);
+      box-shadow: none;
+    }
+    
+    .accordion-button:not(.collapsed) {
+      background: white;
+      color: var(--primary);
+      box-shadow: none;
+    }
+    
+    .accordion-body {
+      padding: 20px;
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .map-section {
+      margin-bottom: 60px;
+    }
+    
+    .map-container {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      height: 400px;
+    }
+    
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .office-hours {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+    
+    .hours-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--secondary);
+    }
+    
+    .hours-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .hours-day {
+      font-weight: 500;
+    }
+    
+    .hours-time {
+      color: #666;
+    }
+    
+    .social-section {
+      text-align: center;
+      margin: 60px 0;
+    }
+    
+    .social-title {
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: var(--secondary);
+    }
+    
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .social-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .social-icon:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-5px);
+    }
+    
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 30px;
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    
+    .footer-social a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      color: white;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .footer-social a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .form-section {
+        padding: 25px;
+      }
+      
+      .social-icons {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-graduation-cap me-2"></i>ScholarshipPortal
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="scholarships.html">Scholarships</a></li>
+          <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
+          <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Contact</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">Get In Touch With Us</h1>
+      <p class="page-subtitle">Have questions about scholarships or need assistance with your application? We're here to help you every step of the way.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Contact Methods -->
+    <div class="row mb-5">
+      <div class="col-md-4">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3 class="contact-title">Email Us</h3>
+          <p class="contact-info">Send us a message and we'll respond within 24 hours</p>
+          <a href="mailto:support@scholarshipportal.com" class="contact-link">support@scholarshipportal.com</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <h3 class="contact-title">Call Us</h3>
+          <p class="contact-info">Speak directly with our scholarship advisors</p>
+          <a href="tel:+11234567890" class="contact-link">+1 (123) 456-7890</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <h3 class="contact-title">Visit Us</h3>
+          <p class="contact-info">Schedule an appointment to visit our office</p>
+          <p class="contact-info mb-0">123 Education Street,<br>Knowledge City, KC 12345</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Contact Form -->
+      <div class="col-lg-8">
+        <div class="form-section">
+          <h2 class="section-title">Send Us a Message</h2>
+          <form>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="name" class="form-label">Your Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" class="form-control" id="subject" placeholder="What is this regarding?" required>
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Inquiry Category</label>
+              <select class="form-select" id="category" required>
+                <option value="" selected disabled>Select a category</option>
+                <option value="scholarship">Scholarship Information</option>
+                <option value="application">Application Assistance</option>
+                <option value="technical">Technical Support</option>
+                <option value="partnership">Partnership Opportunities</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Your Message</label>
+              <textarea class="form-control" id="message" rows="5" placeholder="How can we help you?" required></textarea>
+            </div>
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="newsletter">
+              <label class="form-check-label" for="newsletter">Subscribe to our newsletter for scholarship updates</label>
+            </div>
+            <button type="submit" class="btn btn-submit">Send Message</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Office Hours & Info -->
+      <div class="col-lg-4">
+        <div class="office-hours">
+          <h3 class="hours-title">Office Hours</h3>
+          <div class="hours-item">
+            <span class="hours-day">Monday - Friday</span>
+            <span class="hours-time">9:00 AM - 6:00 PM</span>
+          </div>
+          <div class="hours-item">
+            <span class="hours-day">Saturday</span>
+            <span class="hours-time">10:00 AM - 4:00 PM</span>
+          </div>
+          <div class="hours-item">
+            <span class="hours-day">Sunday</span>
+            <span class="hours-time">Closed</span>
+          </div>
+        </div>
+
+        <div class="office-hours">
+          <h3 class="hours-title">Response Time</h3>
+          <p>We strive to respond to all inquiries within 24 hours during business days. For urgent matters, please call us directly.</p>
+        </div>
+
+        <div class="office-hours">
+          <h3 class="hours-title">Need Immediate Help?</h3>
+          <p>Check our <a href="faq.html" class="contact-link">FAQ section</a> for answers to common questions about scholarships and applications.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="faq-section">
+      <div class="container">
+        <h2 class="section-title text-center">Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                How do I apply for scholarships through your platform?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                You can browse available scholarships on our website, filter by your criteria, and click "Apply Now" on any scholarship that interests you. We'll redirect you to the official application page or provide instructions on how to apply.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                Is there a fee to use your scholarship search service?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                No, our scholarship search and resources are completely free for students. We never charge for accessing scholarship information or using our platform.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                Can you review my application materials before I submit them?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Yes, we offer application review services for a small fee. Our experts can provide feedback on your essays, CV, and other application materials to help strengthen your submission.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="map-section">
+      <h2 class="section-title">Our Location</h2>
+      <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.621581489075!2d-74.0059423845942!3d40.71277597932776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a1c63d36f25%3A0x5f5c5b5b5b5b5b5b!2s123%20Education%20St%2C%20New%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- Social Media -->
+    <div class="social-section">
+      <h3 class="social-title">Follow Us on Social Media</h3>
+      <div class="social-icons">
+        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">ScholarshipPortal</h5>
+          <p>Helping students worldwide find educational opportunities since 2010.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Scholarships</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Guides</a></li>
+            <li><a href="#" class="text-light text-decoration-none">News</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Top Countries</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">USA</a></li>
+            <li><a href="#" class="text-light text-decoration-none">UK</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Canada</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Australia</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">Newsletter</h5>
+          <p>Subscribe to get updates on new scholarships and deadlines.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Your email address">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center copyright">
+        <p>© 2025 Scholarship Portal | All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

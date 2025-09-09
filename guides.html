@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Application Guides | ScholarshipPortal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background-color: #f9fafb;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: var(--accent) !important;
+    }
+    
+    .breadcrumb {
+      background-color: transparent;
+      padding: 15px 0;
+      margin-bottom: 0;
+    }
+    
+    .page-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .page-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+    
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 15px;
+    }
+    
+    .guide-category {
+      margin-bottom: 60px;
+    }
+    
+    .guide-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 30px;
+      height: 100%;
+    }
+    
+    .guide-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .guide-card-img {
+      height: 180px;
+      object-fit: cover;
+    }
+    
+    .guide-card-body {
+      padding: 25px;
+    }
+    
+    .guide-card-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--secondary);
+      font-size: 1.2rem;
+    }
+    
+    .guide-card-excerpt {
+      color: #666;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    
+    .guide-card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+    
+    .guide-card-duration {
+      font-size: 0.9rem;
+      color: #777;
+    }
+    
+    .btn-read-guide {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-read-guide:hover {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .category-tabs {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 40px;
+    }
+    
+    .category-tab {
+      padding: 12px 25px;
+      border-radius: 50px;
+      background: var(--light);
+      border: none;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .category-tab:hover, .category-tab.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .featured-guide {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 60px;
+    }
+    
+    .featured-guide-img {
+      height: 350px;
+      object-fit: cover;
+    }
+    
+    .featured-guide-body {
+      padding: 40px;
+    }
+    
+    .featured-guide-badge {
+      background: var(--accent);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+    
+    .featured-guide-title {
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--secondary);
+      font-size: 1.8rem;
+    }
+    
+    .featured-guide-excerpt {
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .resources-section {
+      background: var(--light);
+      padding: 80px 0;
+    }
+    
+    .resource-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: center;
+      height: 100%;
+      transition: transform 0.3s ease;
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .resource-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(67, 97, 238, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+    
+    .resource-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+    
+    .btn-download {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-download:hover {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .cta-section {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+      border-radius: 15px;
+      margin: 60px 0;
+    }
+    
+    .cta-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    
+    .btn-light {
+      background: white;
+      color: var(--primary);
+      border: none;
+      border-radius: 50px;
+      padding: 12px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-light:hover {
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 30px;
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      color: white;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .featured-guide-img {
+        height: 250px;
+      }
+      
+      .featured-guide-title {
+        font-size: 1.5rem;
+      }
+      
+      .category-tab {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-graduation-cap me-2"></i>ScholarshipPortal
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="scholarships.html">Scholarships</a></li>
+          <li class="nav-item"><a class="nav-link active" href="guides.html">Guides</a></li>
+          <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Guides</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">Application Guides & Resources</h1>
+      <p class="page-subtitle">Expert advice and step-by-step guides to help you navigate the scholarship application process successfully.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Category Tabs -->
+    <div class="category-tabs">
+      <h3 class="section-title">Browse by Category</h3>
+      <div class="d-flex flex-wrap">
+        <button class="category-tab active">All Guides</button>
+        <button class="category-tab">Application Documents</button>
+        <button class="category-tab">Interview Preparation</button>
+        <button class="category-tab">Visa Process</button>
+        <button class="category-tab">Pre-Departure</button>
+        <button class="category-tab">Success Stories</button>
+      </div>
+    </div>
+
+    <!-- Featured Guide -->
+    <div class="featured-guide">
+      <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="featured-guide-img w-100" alt="Featured Guide">
+      <div class="featured-guide-body">
+        <span class="featured-guide-badge">Featured Guide</span>
+        <h2 class="featured-guide-title">The Ultimate Scholarship Application Checklist: Everything You Need for Success</h2>
+        <p class="featured-guide-excerpt">A comprehensive step-by-step guide to preparing a winning scholarship application. From initial research to submission, this guide covers all the essential elements you need to maximize your chances of success.</p>
+        <a href="#" class="btn-read-guide">Read Complete Guide</a>
+      </div>
+    </div>
+
+    <!-- Application Documents Section -->
+    <div class="guide-category">
+      <h3 class="section-title">Application Documents</h3>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="CV Guide">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">How to Write a Strong CV for Scholarship Applications</h3>
+              <p class="guide-card-excerpt">Learn how to create a compelling CV that highlights your achievements and stands out to scholarship committees.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 15 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="SOP Guide">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">Crafting a Powerful Statement of Purpose (SOP)</h3>
+              <p class="guide-card-excerpt">Step-by-step instructions for writing an SOP that tells your unique story and demonstrates your potential.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 20 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="Recommendation Letters">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">How to Secure Strong Recommendation Letters</h3>
+              <p class="guide-card-excerpt">Strategies for approaching recommenders and ensuring they write compelling letters that strengthen your application.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 12 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Preparation Section -->
+    <div class="guide-category">
+      <h3 class="section-title">Interview Preparation</h3>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="Interview Tips">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">Tips for Scholarship Interviews</h3>
+              <p class="guide-card-excerpt">Common interview questions, preparation strategies, and techniques to make a positive impression.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 18 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="Virtual Interviews">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">Ace Your Virtual Scholarship Interview</h3>
+              <p class="guide-card-excerpt">Technical setup, background preparation, and communication tips for successful online interviews.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 14 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="Body Language">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">Body Language for Interview Success</h3>
+              <p class="guide-card-excerpt">How to use non-verbal communication to project confidence and make a positive impression.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 10 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Visa Process Section -->
+    <div class="guide-category">
+      <h3 class="section-title">Visa Application Process</h3>
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="Visa Process">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">Student Visa Application Process</h3>
+              <p class="guide-card-excerpt">A step-by-step guide to navigating the student visa application process for popular study destinations.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 25 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="guide-card-img card-img-top" alt="Visa Documents">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">Essential Documents for Visa Applications</h3>
+              <p class="guide-card-excerpt">Checklist of all required documents and tips for preparing them correctly the first time.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 15 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="guide-card card">
+            <img src="https://thumbs.dreamstime.com/b/happy-beauty-asian-woman-traveling-holding-suitcase-airport-terminal-crowd-people-passengers-background-lifestyle-149802848.jpg" class="guide-card-img card-img-top" alt="Visa Interview">
+            <div class="guide-card-body">
+              <h3 class="guide-card-title">Preparing for Your Visa Interview</h3>
+              <p class="guide-card-excerpt">Common questions, required documentation, and strategies for a successful visa interview.</p>
+              <div class="guide-card-meta">
+                <span class="guide-card-duration"><i class="far fa-clock me-1"></i> 16 min read</span>
+                <a href="#" class="btn-read-guide">Read</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resources Section -->
+  <section class="resources-section">
+    <div class="container">
+      <h2 class="section-title text-center">Downloadable Resources</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="resource-card">
+            <div class="resource-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h3 class="resource-title">CV Template Pack</h3>
+            <p>Professional templates designed specifically for scholarship applications.</p>
+            <button class="btn-download"><i class="fas fa-download me-2"></i> Download</button>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="resource-card">
+            <div class="resource-icon">
+              <i class="fas fa-list-check"></i>
+            </div>
+            <h3 class="resource-title">Application Checklist</h3>
+            <p>Comprehensive checklist to ensure you don't miss any important steps.</p>
+            <button class="btn-download"><i class="fas fa-download me-2"></i> Download</button>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="resource-card">
+            <div class="resource-icon">
+              <i class="fas fa-calendar-days"></i>
+            </div>
+            <h3 class="resource-title">Planning Timeline</h3>
+            <p>12-month timeline to plan your scholarship application process effectively.</p>
+            <button class="btn-download"><i class="fas fa-download me-2"></i> Download</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <div class="container">
+    <section class="cta-section">
+      <h2 class="cta-title">Need Personalized Guidance?</h2>
+      <p class="mb-4">Our experts can provide one-on-one assistance with your application materials</p>
+      <a href="contact.html" class="btn btn-light btn-lg">Get Expert Help</a>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">ScholarshipPortal</h5>
+          <p>Helping students worldwide find educational opportunities since 2010.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Scholarships</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Guides</a></li>
+            <li><a href="#" class="text-light text-decoration-none">News</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Top Countries</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">USA</a></li>
+            <li><a href="#" class="text-light text-decoration-none">UK</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Canada</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Australia</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">Newsletter</h5>
+          <p>Subscribe to get updates on new scholarships and deadlines.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Your email address">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center copyright">
+        <p>© 2025 Scholarship Portal | All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

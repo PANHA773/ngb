@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholarship News | ScholarshipPortal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --success: #4cc9f0;
+      --light: #f8f9fa;
+      --dark: #212529;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background-color: #f9fafb;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: var(--accent) !important;
+    }
+    
+    .breadcrumb {
+      background-color: transparent;
+      padding: 15px 0;
+      margin-bottom: 0;
+    }
+    
+    .page-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .page-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 30px;
+      font-weight: 700;
+    }
+    
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 15px;
+    }
+    
+    .filter-section {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+    
+    .filter-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+    
+    .filter-group {
+      margin-bottom: 20px;
+    }
+    
+    .filter-label {
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    .news-search {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    
+    .news-search-input {
+      border-radius: 50px;
+      padding: 12px 25px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .news-search-btn {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      border-radius: 50px;
+      padding: 7px 20px;
+      background: var(--primary);
+      border: none;
+      color: white;
+    }
+    
+    .news-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 30px;
+      height: 100%;
+    }
+    
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .news-card-img {
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .news-card-body {
+      padding: 20px;
+    }
+    
+    .news-card-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--secondary);
+      font-size: 1.2rem;
+      line-height: 1.4;
+    }
+    
+    .news-card-excerpt {
+      color: #666;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .news-card-meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    
+    .news-card-date {
+      margin-right: 15px;
+    }
+    
+    .news-card-category {
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .btn-read-more {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .btn-read-more:hover {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .featured-article {
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-bottom: 40px;
+    }
+    
+    .featured-article-img {
+      height: 400px;
+      object-fit: cover;
+    }
+    
+    .featured-article-body {
+      padding: 30px;
+      background: white;
+    }
+    
+    .featured-article-badge {
+      background: var(--accent);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 15px;
+      display: inline-block;
+    }
+    
+    .featured-article-title {
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--secondary);
+      font-size: 1.8rem;
+    }
+    
+    .featured-article-excerpt {
+      color: #666;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .newsletter-section {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 60px 0;
+      border-radius: 15px;
+      margin: 60px 0;
+      text-align: center;
+    }
+    
+    .newsletter-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .newsletter-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    
+    .newsletter-input {
+      border-radius: 50px 0 0 50px;
+      border: none;
+      padding: 12px 20px;
+    }
+    
+    .newsletter-btn {
+      border-radius: 0 50px 50px 0;
+      background: var(--accent);
+      border: none;
+      padding: 12px 25px;
+    }
+    
+    .pagination {
+      justify-content: center;
+      margin-top: 40px;
+    }
+    
+    .page-item.active .page-link {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .page-link {
+      color: var(--primary);
+      border-radius: 8px;
+      margin: 0 5px;
+      border: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 30px;
+      margin-top: 60px;
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      color: white;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .featured-article-img {
+        height: 250px;
+      }
+      
+      .featured-article-title {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-graduation-cap me-2"></i>ScholarshipPortal
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="scholarships.html">Scholarships</a></li>
+          <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
+          <li class="nav-item"><a class="nav-link active" href="news.html">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">News</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">Scholarship News & Updates</h1>
+      <p class="page-subtitle">Stay informed about the latest scholarship opportunities, deadlines, and education news from around the world.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Search Bar -->
+    <div class="news-search">
+      <input type="text" class="form-control news-search-input" placeholder="Search news articles...">
+      <button class="btn news-search-btn"><i class="fas fa-search me-1"></i> Search</button>
+    </div>
+    
+    <div class="row">
+      <!-- Filters Sidebar -->
+      <div class="col-lg-3">
+        <div class="filter-section">
+          <h3 class="filter-title">Filter News</h3>
+          
+          <div class="filter-group">
+            <label class="filter-label">Category</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="category1" checked>
+              <label class="form-check-label" for="category1">Scholarship Updates</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="category2">
+              <label class="form-check-label" for="category2">Deadline Alerts</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="category3">
+              <label class="form-check-label" for="category3">Study Abroad</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="category4">
+              <label class="form-check-label" for="category4">Application Tips</label>
+            </div>
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Region</label>
+            <select class="form-select">
+              <option selected>All Regions</option>
+              <option>North America</option>
+              <option>Europe</option>
+              <option>Asia</option>
+              <option>Australia</option>
+              <option>Africa</option>
+            </select>
+          </div>
+          
+          <div class="filter-group">
+            <label class="filter-label">Time Period</label>
+            <select class="form-select">
+              <option selected>All Time</option>
+              <option>Last 7 Days</option>
+              <option>Last 30 Days</option>
+              <option>Last 6 Months</option>
+            </select>
+          </div>
+          
+          <button class="btn btn-primary w-100">Apply Filters</button>
+          <button class="btn btn-outline-secondary w-100 mt-2">Reset Filters</button>
+        </div>
+        
+        <div class="filter-section mt-4">
+          <h3 class="filter-title">Popular Tags</h3>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="badge bg-light text-dark">#Scholarship2025</span>
+            <span class="badge bg-light text-dark">#FullyFunded</span>
+            <span class="badge bg-light text-dark">#StudyAbroad</span>
+            <span class="badge bg-light text-dark">#Deadline</span>
+            <span class="badge bg-light text-dark">#Masters</span>
+            <span class="badge bg-light text-dark">#PhD</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- News Content -->
+      <div class="col-lg-9">
+        <!-- Featured Article -->
+        <div class="featured-article">
+          <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" class="featured-article-img w-100" alt="Featured Article">
+          <div class="featured-article-body">
+            <span class="featured-article-badge">Featured</span>
+            <h2 class="featured-article-title">New Erasmus+ Opportunities for 2025: Expanded Funding and More Countries</h2>
+            <p class="featured-article-excerpt">The European Union has announced a major expansion of the Erasmus+ program for 2025, with increased funding of €4.5 billion and the inclusion of several new partner countries. This expansion will create thousands of new opportunities for students worldwide.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="text-muted">April 15, 2025 | By ScholarshipPortal Team</div>
+              <a href="#" class="btn-read-more">Read Full Article</a>
+            </div>
+          </div>
+        </div>
+        
+        <h2 class="section-title">Latest News</h2>
+        
+        <div class="row">
+          <!-- News Article 1 -->
+          <div class="col-md-6">
+            <div class="news-card card">
+              <img src="https://149818895.v2.pressablecdn.com/wp-content/uploads/2020/01/GREAT-Scholarships-at-Durham-University-in-UK-2020-768x448.jpg" class="news-card-img card-img-top" alt="News Article">
+              <div class="news-card-body">
+                <h3 class="news-card-title">UK Announces New Chevening Scholarship Recipients for 2025</h3>
+                <p class="news-card-excerpt">The UK Foreign Office has announced the selection of 1,800 new Chevening Scholars from around the world for the 2025-2026 academic year.</p>
+                <div class="news-card-meta">
+                  <span class="news-card-date"><i class="far fa-calendar me-1"></i> April 12, 2025</span>
+                  <span class="news-card-category">Scholarship Updates</span>
+                </div>
+                <a href="#" class="btn-read-more">Read More</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- News Article 2 -->
+          <div class="col-md-6">
+            <div class="news-card card">
+              <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="news-card-img card-img-top" alt="News Article">
+              <div class="news-card-body">
+                <h3 class="news-card-title">Fulbright Program Introduces New STEM-Focused Scholarships</h3>
+                <p class="news-card-excerpt">The Fulbright Program has launched a new initiative to support STEM students with 500 additional scholarships specifically for technology and engineering fields.</p>
+                <div class="news-card-meta">
+                  <span class="news-card-date"><i class="far fa-calendar me-1"></i> April 10, 2025</span>
+                  <span class="news-card-category">Scholarship Updates</span>
+                </div>
+                <a href="#" class="btn-read-more">Read More</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- News Article 3 -->
+          <div class="col-md-6">
+            <div class="news-card card">
+              <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="news-card-img card-img-top" alt="News Article">
+              <div class="news-card-body">
+                <h3 class="news-card-title">Upcoming Deadline Alert: Australia Awards Scholarships Closing Soon</h3>
+                <p class="news-card-excerpt">The application deadline for Australia Awards Scholarships is approaching fast. Submit your applications before April 30, 2025.</p>
+                <div class="news-card-meta">
+                  <span class="news-card-date"><i class="far fa-calendar me-1"></i> April 8, 2025</span>
+                  <span class="news-card-category">Deadline Alerts</span>
+                </div>
+                <a href="#" class="btn-read-more">Read More</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- News Article 4 -->
+          <div class="col-md-6">
+            <div class="news-card card">
+              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="news-card-img card-img-top" alt="News Article">
+              <div class="news-card-body">
+                <h3 class="news-card-title">How to Write a Winning Scholarship Motivation Letter</h3>
+                <p class="news-card-excerpt">Expert tips and strategies for crafting a compelling motivation letter that will make your scholarship application stand out.</p>
+                <div class="news-card-meta">
+                  <span class="news-card-date"><i class="far fa-calendar me-1"></i> April 5, 2025</span>
+                  <span class="news-card-category">Application Tips</span>
+                </div>
+                <a href="#" class="btn-read-more">Read More</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- News Article 5 -->
+          <div class="col-md-6">
+            <div class="news-card card">
+              <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="news-card-img card-img-top" alt="News Article">
+              <div class="news-card-body">
+                <h3 class="news-card-title">Canada Increases International Student Scholarships by 25%</h3>
+                <p class="news-card-excerpt">The Canadian government has announced a significant increase in scholarship funding for international students across all provinces.</p>
+                <div class="news-card-meta">
+                  <span class="news-card-date"><i class="far fa-calendar me-1"></i> April 3, 2025</span>
+                  <span class="news-card-category">Scholarship Updates</span>
+                </div>
+                <a href="#" class="btn-read-more">Read More</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- News Article 6 -->
+          <div class="col-md-6">
+            <div class="news-card card">
+              <img src="https://t3.ftcdn.net/jpg/06/98/25/70/360_F_698257006_RnpFuqLVzqeTnpp9LuBhwPKigwrQOEIY.jpg" class="news-card-img card-img-top" alt="News Article">
+              <div class="news-card-body">
+                <h3 class="news-card-title">New Partnership Creates STEM Scholarships for Women</h3>
+                <p class="news-card-excerpt">A new initiative between tech giants and universities will provide 1,000 scholarships for women pursuing STEM degrees globally.</p>
+                <div class="news-card-meta">
+                  <span class="news-card-date"><i class="far fa-calendar me-1"></i> March 29, 2025</span>
+                  <span class="news-card-category">Scholarship Updates</span>
+                </div>
+                <a href="#" class="btn-read-more">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Pagination -->
+        <nav aria-label="News pagination">
+          <ul class="pagination">
+            <li class="page-item disabled">
+              <a class="page-link" href="#" tabindex="-1">Previous</a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section">
+    <div class="container">
+      <h2 class="newsletter-title">Stay Updated with Scholarship News</h2>
+      <p class="mb-4">Subscribe to our newsletter and never miss important scholarship updates and deadlines</p>
+      <form class="d-flex newsletter-form">
+        <input type="email" class="form-control newsletter-input" placeholder="Your email address">
+        <button class="btn newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">ScholarshipPortal</h5>
+          <p>Helping students worldwide find educational opportunities since 2010.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Scholarships</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Guides</a></li>
+            <li><a href="#" class="text-light text-decoration-none">News</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Top Countries</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">USA</a></li>
+            <li><a href="#" class="text-light text-decoration-none">UK</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Canada</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Australia</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">Newsletter</h5>
+          <p>Subscribe to get updates on new scholarships and deadlines.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Your email address">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center copyright">
+        <p>© 2025 Scholarship Portal | All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
