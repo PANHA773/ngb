@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholarship Assistant | ScholarshipPortal</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4cc9f0;
+      --chatbot-bg: #f0f4ff;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+      background-color: #f9fafb;
+    }
+    
+    .navbar {
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 15px 0;
+    }
+    
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      margin: 0 5px;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+      color: var(--accent) !important;
+    }
+    
+    .breadcrumb {
+      background-color: transparent;
+      padding: 15px 0;
+      margin-bottom: 0;
+    }
+    
+    .page-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+    
+    .page-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 40px;
+      font-weight: 700;
+    }
+    
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 15px;
+    }
+    
+    /* Chatbot Container */
+    .chatbot-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      margin-bottom: 60px;
+    }
+    
+    .chatbot-header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .chatbot-avatar {
+      width: 60px;
+      height: 60px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      color: var(--primary);
+      font-size: 1.8rem;
+    }
+    
+    .chatbot-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+    
+    .status-indicator {
+      width: 10px;
+      height: 10px;
+      background: #4ade80;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .chatbot-body {
+      padding: 0;
+      height: 400px;
+      overflow-y: auto;
+      background: var(--chatbot-bg);
+    }
+    
+    .chat-messages {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .message {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: 18px;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .bot-message {
+      background: white;
+      border: 1px solid #e5e7eb;
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    
+    .user-message {
+      background: var(--primary);
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    
+    .message-time {
+      font-size: 0.7rem;
+      opacity: 0.7;
+      margin-top: 5px;
+      text-align: right;
+    }
+    
+    .chatbot-footer {
+      padding: 15px;
+      background: white;
+      border-top: 1px solid #e5e7eb;
+    }
+    
+    .chat-input-container {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .chat-input {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 50px;
+      padding: 12px 20px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    
+    .chat-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+    }
+    
+    .chat-submit {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .chat-submit:hover {
+      background: var(--secondary);
+      transform: rotate(15deg);
+    }
+    
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+    
+    .quick-reply {
+      background: var(--light);
+      border: 1px solid #e5e7eb;
+      border-radius: 50px;
+      padding: 8px 15px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-reply:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      background: var(--light);
+      padding: 80px 0;
+    }
+    
+    .accordion-item {
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+    
+    .accordion-button {
+      background: white;
+      border: none;
+      border-radius: 10px;
+      padding: 20px;
+      font-weight: 600;
+      color: var(--secondary);
+      box-shadow: none;
+    }
+    
+    .accordion-button:not(.collapsed) {
+      background: white;
+      color: var(--primary);
+      box-shadow: none;
+    }
+    
+    .accordion-body {
+      padding: 20px;
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    /* Resources Section */
+    .resources-section {
+      padding: 80px 0;
+    }
+    
+    .resource-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: center;
+      height: 100%;
+      transition: transform 0.3s ease;
+    }
+    
+    .resource-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .resource-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(67, 97, 238, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+    
+    .resource-title {
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+    
+    .btn-resource {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    
+    .btn-resource:hover {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 30px;
+      margin-top: 60px;
+    }
+    
+    .footer-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+    
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      text-align: center;
+      line-height: 40px;
+      color: white;
+      margin-right: 10px;
+      transition: all 0.3s ease;
+    }
+    
+    .social-icons a:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+    
+    .copyright {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .message {
+        max-width: 90%;
+      }
+      
+      .chatbot-body {
+        height: 350px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <img src="assets/img/logo.png" alt="Test Logo" width="110">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="scholarships.html">Scholarships</a></li>
+          <li class="nav-item"><a class="nav-link" href="guides.html">Guides</a></li>
+          <li class="nav-item"><a class="nav-link" href="news.html">News</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link active" href="chatbot.html">Chat Assistant</a></li>
+          <li class="nav-item"><a class="nav-link btn btn-outline-light ms-2 px-4" href="login.html">Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-4">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Chat Assistant</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">Scholarship Assistant</h1>
+      <p class="page-subtitle">Get instant answers to your scholarship questions with our AI-powered assistant</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Chatbot Container -->
+    <div class="chatbot-container">
+      <div class="chatbot-header">
+        <div class="chatbot-avatar">
+          <i class="fas fa-robot"></i>
+        </div>
+        <h3>Scholarship Assistant</h3>
+        <div class="chatbot-status">
+          <div class="status-indicator"></div>
+          <span>Online - Ready to help</span>
+        </div>
+      </div>
+      
+      <div class="chatbot-body">
+        <div class="chat-messages" id="chatMessages">
+          <div class="message bot-message">
+            <p>Hello! I'm your Scholarship Assistant. How can I help you today?</p>
+            <div class="message-time">Just now</div>
+          </div>
+          <div class="message bot-message">
+            <p>You can ask me about:</p>
+            <ul>
+              <li>Scholarship opportunities</li>
+              <li>Application requirements</li>
+              <li>Deadlines</li>
+              <li>Document preparation</li>
+              <li>And much more!</li>
+            </ul>
+            <div class="message-time">Just now</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chatbot-footer">
+        <div class="quick-replies">
+          <div class="quick-reply" data-question="What scholarships are available for MBA?">MBA Scholarships</div>
+          <div class="quick-reply" data-question="How to write a good motivation letter?">Motivation Letter Tips</div>
+          <div class="quick-reply" data-question="What documents do I need to apply?">Required Documents</div>
+          <div class="quick-reply" data-question="When is the next deadline?">Upcoming Deadlines</div>
+        </div>
+        
+        <div class="chat-input-container mt-3">
+          <input type="text" class="chat-input" id="chatInput" placeholder="Type your question here...">
+          <button class="chat-submit" id="chatSubmit">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-title text-center">Frequently Asked Questions</h2>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                How do I find scholarships that match my profile?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Our platform uses intelligent matching algorithms to recommend scholarships based on your academic background, interests, and qualifications. You can also use our advanced filters to search by country, field of study, degree level, and more.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                What documents are typically required for scholarship applications?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Common documents include academic transcripts, CV/resume, motivation letter, recommendation letters, language proficiency test scores, and a valid passport. Specific requirements vary by scholarship, so always check the official guidelines.
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                How can I improve my chances of getting a scholarship?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Start early, tailor each application to the specific scholarship, highlight your unique strengths and experiences, obtain strong recommendation letters, proofread all materials carefully, and apply to multiple opportunities to increase your chances.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources-section">
+      <div class="container">
+        <h2 class="section-title text-center">Helpful Resources</h2>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="resource-card">
+              <div class="resource-icon">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <h3 class="resource-title">Application Templates</h3>
+              <p>Download professionally designed templates for motivation letters, CVs, and more.</p>
+              <button class="btn-resource">Download</button>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="resource-card">
+              <div class="resource-icon">
+                <i class="fas fa-calendar-days"></i>
+              </div>
+              <h3 class="resource-title">Deadline Calendar</h3>
+              <p>Never miss an important deadline with our interactive scholarship calendar.</p>
+              <button class="btn-resource">View Calendar</button>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4">
+            <div class="resource-card">
+              <div class="resource-icon">
+                <i class="fas fa-book"></i>
+              </div>
+              <h3 class="resource-title">Application Guide</h3>
+              <p>Step-by-step guide to crafting winning scholarship applications.</p>
+              <button class="btn-resource">Read Guide</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">ScholarshipPortal</h5>
+          <p>Helping students worldwide find educational opportunities since 2010.</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Scholarships</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Guides</a></li>
+            <li><a href="#" class="text-light text-decoration-none">News</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2 mb-4">
+          <h5 class="footer-title">Top Countries</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-light text-decoration-none">USA</a></li>
+            <li><a href="#" class="text-light text-decoration-none">UK</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Canada</a></li>
+            <li><a href="#" class="text-light text-decoration-none">Australia</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-4">
+          <h5 class="footer-title">Newsletter</h5>
+          <p>Subscribe to get updates on new scholarships and deadlines.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Your email address">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <div class="text-center copyright">
+        <p>© 2025 Scholarship Portal | All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Chatbot functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatMessages = document.getElementById('chatMessages');
+      const chatInput = document.getElementById('chatInput');
+      const chatSubmit = document.getElementById('chatSubmit');
+      const quickReplies = document.querySelectorAll('.quick-reply');
+      
+      // Sample responses for demonstration
+      const responses = {
+        "default": "I'm not sure I understand. Could you please rephrase your question? You can ask me about scholarships, application processes, deadlines, or required documents.",
+        "mba": "There are many MBA scholarships available! Some popular ones include: <br><br>1. <strong>Fulbright MBA Scholarships</strong> - For international students studying in the US<br>2. <strong>Chevening Scholarships</strong> - For MBA programs in the UK<br>3. <strong>Forté Fellowships</strong> - For women pursuing MBAs<br><br>Would you like more details about any of these?",
+        "motivation": "A good motivation letter should include: <br><br>1. <strong>Introduction</strong> - Who you are and your academic background<br>2. <strong>Why this scholarship?</strong> - Why you're interested in this particular opportunity<br>3. <strong>Your goals</strong> - How this scholarship will help you achieve your career aspirations<br>4. <strong>Conclusion</strong> - A strong closing statement<br><br>Keep it concise (usually 500-1000 words) and tailor it to each specific scholarship.",
+        "documents": "Typically, you'll need: <br><br>• Academic transcripts<br>• CV/Resume<br>• Motivation letter<br>• Recommendation letters (usually 2-3)<br>• Language test scores (TOEFL, IELTS, etc.)<br>• Valid passport<br>• Sometimes: Research proposal or portfolio<br><br>Always check the specific requirements for each scholarship!",
+        "deadline": "Here are some upcoming deadlines: <br><br>• <strong>Chevening Scholarships</strong>: November 5, 2025<br>• <strong>Fulbright Program</strong>: October 15, 2025<br>• <strong>Australia Awards</strong>: April 30, 2025<br>• <strong>Erasmus Mundus</strong>: January 15, 2025<br><br>Would you like me to set a reminder for any of these deadlines?"
+      };
+      
+      // Function to add a message to the chat
+      function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+        
+        const messageContent = document.createElement('p');
+        messageContent.innerHTML = text;
+        
+        const messageTime = document.createElement('div');
+        messageTime.className = 'message-time';
+        messageTime.textContent = 'Just now';
+        
+        messageDiv.appendChild(messageContent);
+        messageDiv.appendChild(messageTime);
+        
+        chatMessages.appendChild(messageDiv);
+        
+        // Scroll to bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+      
+      // Function to generate bot response
+      function generateResponse(question) {
+        question = question.toLowerCase();
+        
+        if (question.includes('mba')) {
+          return responses.mba;
+        } else if (question.includes('motivation') || question.includes('letter')) {
+          return responses.motivation;
+        } else if (question.includes('document') || question.includes('require')) {
+          return responses.documents;
+        } else if (question.includes('deadline')) {
+          return responses.deadline;
+        } else {
+          return responses.default;
+        }
+      }
+      
+      // Handle message submission
+      function handleSubmit() {
+        const message = chatInput.value.trim();
+        
+        if (message) {
+          // Add user message
+          addMessage(message, true);
+          
+          // Clear input
+          chatInput.value = '';
+          
+          // Simulate typing delay
+          setTimeout(() => {
+            // Add bot response
+            const response = generateResponse(message);
+            addMessage(response);
+          }, 1000);
+        }
+      }
+      
+      // Event listeners
+      chatSubmit.addEventListener('click', handleSubmit);
+      
+      chatInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          handleSubmit();
+        }
+      });
+      
+      // Quick replies
+      quickReplies.forEach(reply => {
+        reply.addEventListener('click', function() {
+          const question = this.getAttribute('data-question');
+          chatInput.value = question;
+          handleSubmit();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
